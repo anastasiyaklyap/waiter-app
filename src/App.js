@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import NotFound from './components/pages/NotFound/NotFound';
+import Home from './components/pages/Home/Home';
+import Table from './components/pages/Table/Table';
+import Footer from './components/views/Footer/Footer';
+import Header from './components/views/Header/Header';
+import { Container } from 'react-bootstrap';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Container>
+			<Header />
+			<Routes>
+				<Route
+					path='/'
+					element={<Home />}
+				/>
+				<Route
+					path='/table/:tableId'
+					element={<Table />}
+				/>
+				<Route
+					path='*'
+					element={<NotFound />}
+				/>
+			</Routes>
+			<Footer></Footer>
+		</Container>
+	);
 }
 
 export default App;
