@@ -1,3 +1,5 @@
+import { API_URL } from "../config";
+
 const createActionName = (actionName) => `app/tables/${actionName}`;
 const FETCH_TABLES = createActionName('FETCH_TABLES');
 const UPDATE_TABLE = createActionName('UPDATE_TABLE');
@@ -35,7 +37,7 @@ export const addTable = (payload) => ({
 export const fetchTables = () => {
 	return async (dispatch) => {
 		try {
-			const res = await fetch('http://localhost:3131/api/tables');
+			const res = await fetch(`${API_URL}/tables`);
 			const tables = await res.json();
 			dispatch(updateTables(tables));
 		} catch (err) {
@@ -52,7 +54,7 @@ export const addTableRequest = (newTable) => {
 			body: JSON.stringify(newTable),
 		};
 		try {
-			await fetch('http://localhost:3131/api/tables', options);
+			await fetch(`${API_URL}/tables`, options);
 			await dispatch(addTable(newTable));
 		} catch (err) {
 			console.error(err);
@@ -66,7 +68,7 @@ export const removeTableRequest = (id) => {
 			method: 'DELETE',
 		};
 		try {
-			await fetch(`http://localhost:3131/api/tables/${id}`, options);
+			await fetch(`${API_URL}/tables/${id}`, options);
 			await dispatch(removeTable(id));
 		} catch (err) {
 			console.error(err);
@@ -85,7 +87,7 @@ export const updateTableRequest = (updatedTable) => {
 		};
 		try {
 			await fetch(
-				`http://localhost:3131/api/tables/${updatedTable.id}`,
+				`${API_URL}/tables/${updatedTable.id}`,
 				options
 			);
 			await dispatch(updateTable(updateTable));
