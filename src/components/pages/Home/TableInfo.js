@@ -1,15 +1,8 @@
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import { useDispatch } from 'react-redux';
-import { removeTable } from '../../../redux/tablesRedux';
+import { Button } from 'react-bootstrap';
+import RemoveTable from '../../features/RemoveTable';
 
-const TableInfo = ({ id, status, remove }) => {
-	// const dispatch = useDispatch();
-
-	// const handleRemoveTable = () => {
-	// 	dispatch(removeTable(id));
-	// };
-
+const TableInfo = ({ id, status }) => {
 	return (
 		<article className='justify-content-between d-flex my-3 pb-2 border-bottom border-light border-2'>
 			<div className='d-flex align-items-center'>
@@ -30,13 +23,7 @@ const TableInfo = ({ id, status, remove }) => {
 						Show more
 					</Button>
 				</Link>
-				<Button
-					variant='primary'
-					className='ms-2'
-					onClick={() => remove(id)}
-				>
-					Remove table
-				</Button>
+				<RemoveTable id={id} />
 			</div>
 		</article>
 	);

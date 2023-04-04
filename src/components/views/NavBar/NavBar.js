@@ -9,18 +9,18 @@ const NavBar = () => {
 			<Nav className='me-auto'>
 				<Navbar.Brand
 					as={NavLink}
-					to='/'
+					href='/'
 				>
 					Waiter.app
 				</Navbar.Brand>
 			</Nav>
 			<Nav>
-					<Nav.Link
-						as={NavLink}
-						to='/'
-					>
-						Home
-					</Nav.Link>
+				<Nav.Link
+					as={NavLink}
+					href='/'
+				>
+					Home
+				</Nav.Link>
 			</Nav>
 		</Navbar>
 	);
