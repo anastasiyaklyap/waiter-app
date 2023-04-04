@@ -5,4 +5,4 @@ ADD yarn.lock ./
 RUN yarn --pure-lockfile
 ADD ./ ./
 RUN yarn build
-CMD ["yarn", "start"]
+CMD ["yarn", "server"]

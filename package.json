@@ -23,6 +23,7 @@
 		"start": "npm-run-all -p start:*",
 		"start:react": "react-scripts start",
 		"start:server": "json-server --port 3131 --no-cors --delay 250 --watch public/db/app.json --routes public/db/routes.json -H 0.0.0.0",
+		"server": "node server.mjs",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
