@@ -9,7 +9,7 @@ const AddNewTable = () => {
 	const [warning, setWarning] = useState(false);
 	const dispath = useDispatch();
 
-	const tables = useSelector((state) => getAllTables(state));
+	const tables = useSelector((state) => getAllTables(state.tables));
 
 	const handleAddTable = async (e) => {
 		e.preventDefault();
@@ -19,7 +19,7 @@ const AddNewTable = () => {
 			setWarning(true);
 		} else {
 			setWarning(false);
-			dispath(
+			await dispath(
 				addTableRequest({
 					id: newTable,
 					status: 'Free',

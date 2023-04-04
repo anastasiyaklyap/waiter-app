@@ -5,7 +5,7 @@ import Table from './components/pages/Table/Table';
 import Footer from './components/views/Footer/Footer';
 import Header from './components/views/Header/Header';
 import { Container } from 'react-bootstrap';
-import { fetchTables } from './redux/tablesRedux';
+import { updateTablesRequest } from './redux/tablesRedux';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Spinner, Button } from 'react-bootstrap';
@@ -18,9 +18,9 @@ function App() {
 		(async () => {
 			try {
 				setSpinner(true);
-				await dispatch(fetchTables());
+				await dispatch(updateTablesRequest());
 			} catch (err) {
-				console.log(err);
+				console.error(err);
 			} finally {
 				setSpinner(false);
 			}

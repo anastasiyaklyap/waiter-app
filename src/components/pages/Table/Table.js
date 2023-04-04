@@ -7,7 +7,7 @@ import TableForm from '../../features/TableForm';
 
 const Table = () => {
 	const { tableId } = useParams();
-	const tableData = useSelector((state) => getTableById(state, tableId));
+	const tableData = useSelector((state) => getTableById(state.tables, tableId));
 
 	if (!tableData) return <Navigate to='/' />;
 	return (

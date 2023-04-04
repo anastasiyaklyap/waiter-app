@@ -1,10 +1,5 @@
-import { API_URL } from "../config";
-
-const createActionName = (actionName) => `app/tables/${actionName}`;
-const FETCH_TABLES = createActionName('FETCH_TABLES');
-const UPDATE_TABLE = createActionName('UPDATE_TABLE');
-const REMOVE_TABLE = createActionName('REMOVE_TABLE');
-const ADD_TABLE = createActionName('ADD_TABLE');
+import { createSlice } from '@reduxjs/toolkit';
+import { API_URL } from '../config';
 
 export const getTableById = ({ tables }, tableId) => {
 	return tables.find((table) => table.id === tableId);
@@ -14,32 +9,12 @@ export const getAllTables = ({ tables }) => {
 	return tables;
 };
 
-export const updateTables = (payload) => ({
-	type: FETCH_TABLES,
-	payload,
-});
-
-export const updateTable = (payload) => ({
-	type: UPDATE_TABLE,
-	payload,
-});
-
-export const removeTable = (payload) => ({
-	type: REMOVE_TABLE,
-	payload,
-});
-
-export const addTable = (payload) => ({
-	type: ADD_TABLE,
-	payload,
-});
-
-export const fetchTables = () => {
+export const updateTablesRequest = () => {
 	return async (dispatch) => {
 		try {
 			const res = await fetch(`${API_URL}/tables`);
 			const tables = await res.json();
-			dispatch(updateTables(tables));
+			await dispatch(fetchTables(tables));
 		} catch (err) {
 			console.error(err);
 		}
@@ -86,36 +61,41 @@ export const updateTableRequest = (updatedTable) => {
 			body: JSON.stringify(updatedTable),
 		};
 		try {
-			await fetch(
-				`${API_URL}/tables/${updatedTable.id}`,
-				options
-			);
-			await dispatch(updateTable(updateTable));
+			await fetch(`${API_URL}/tables/${updatedTable.id}`, options);
+			await dispatch(updateTable(updatedTable));
 		} catch (err) {
 			console.error(err);
 		}
 	};
 };
 
-const tablesReducer = (statePart = [], action) => {
-	switch (action.type) {
-		case FETCH_TABLES:
-			return [...action.payload];
-		case UPDATE_TABLE:
-			return statePart.map((table) =>
-				table.id === action.payload.id ? { ...action.payload } : table
+export const tablesSlice = createSlice({
+	name: 'tables',
+	initialState: { tables: [] },
+	reducers: {
+		fetchTables: (state, action) => {
+			state.tables = [...action.payload];
+		},
+		updateTable: (state, action) => {
+			let updatedTable = state.tables.find(
+				(table) => table.id === action.payload.id
 			);
-		case REMOVE_TABLE:
-			return statePart.filter((table) => table.id !== action.payload);
-		case ADD_TABLE:
-			return [
-				...statePart,
-				{
-					...action.payload,
-				},
-			];
-		default:
-			return statePart;
-	}
-};
-export default tablesReducer;
+			if (updatedTable) {
+				updatedTable = { ...action.payload };
+			}
+		},
+		removeTable: (state, action) => {
+			state.tables = state.tables.filter(
+				(table) => table.id !== action.payload
+			);
+		},
+		addTable: (state, action) => {
+			state.tables.push(action.payload);
+		},
+	},
+});
+
+export const { fetchTables, updateTable, removeTable, addTable } =
+	tablesSlice.actions;
+
+export default tablesSlice.reducer;

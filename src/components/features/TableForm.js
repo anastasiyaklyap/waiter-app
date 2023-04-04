@@ -5,7 +5,7 @@ import { InputGroup, Form, Button } from 'react-bootstrap';
 import { getTableById, updateTableRequest } from '../../redux/tablesRedux';
 
 const TableForm = ({ tableId }) => {
-	const tableData = useSelector((state) => getTableById(state, tableId));
+	const tableData = useSelector((state) => getTableById(state.tables, tableId));
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

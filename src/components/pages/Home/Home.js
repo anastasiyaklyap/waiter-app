@@ -5,18 +5,18 @@ import TableInfo from './TableInfo';
 import AddNewTable from '../../features/AddNewTable';
 
 const Home = () => {
-	const tables = useSelector((state) => getAllTables(state));
-
+	const tables = useSelector((state) => getAllTables(state.tables));
 	return (
 		<>
 			<PageTitle className='pb-2'>All tables</PageTitle>
-			{tables.map((table) => (
-				<TableInfo
-					key={table.id}
-					id={table.id}
-					status={table.status}
-				/>
-			))}
+			{tables &&
+				tables.map((table) => (
+					<TableInfo
+						key={table.id}
+						id={table.id}
+						status={table.status}
+					/>
+				))}
 			<AddNewTable />
 		</>
 	);
