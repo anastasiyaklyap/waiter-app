@@ -1,12 +1,20 @@
-version: '3'
+version: '3.4'
 
 services:
-  frontend:
+  proxy:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dist
     ports:
-      - '9999:80'
-    volumes:
-      - /app/node_modules
-      - ./:/app
+      - '8000:80'
+  server-json:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    environment:
+      - PORT=6060
+    ports:
+      - '6060:6060'
+    command: yarn start:server
